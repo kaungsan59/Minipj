@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -122,51 +122,46 @@
 
 <body>
 
-<div class="register-box">
+    <div class="register-box">
 
-    <h2>Create Account</h2>
-    <p class="subtitle">Please fill in your details</p>
+        <h2>Create Account</h2>
+        <p class="subtitle">Please fill in your details</p>
 
-    @if ($errors->any())
-        <ul class="error-list">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+        @if ($errors->any())
+            <ul class="error-list">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
-    <form action="{{ url('/register') }}" method="POST">
-        @csrf
+        <form action="{{ url('/register') }}" method="POST">
+            @csrf
 
-        <label>Full Name</label>
-        <input type="text" name="name"
-               placeholder="Enter your full name"
-               value="{{ old('name') }}" required>
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your full name" value="{{ old('name') }}"
+                required>
 
-        <label>Email Address</label>
-        <input type="email" name="email"
-               placeholder="Enter your email"
-               value="{{ old('email') }}" required>
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="Enter your email" value="{{ old('email') }}" required>
 
-        <label>Password</label>
-        <input type="password" name="password"
-               placeholder="Create a password"
-               minlength="8" required>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Create a password" minlength="8" required>
 
-        <label>Confirm Password</label>
-        <input type="password" name="password_confirmation"
-               placeholder="Confirm your password"
-               minlength="8" required>
+            <label>Confirm Password</label>
+            <input type="password" name="password_confirmation" placeholder="Confirm your password" minlength="8"
+                required>
 
-        <button type="submit">Create Account</button>
-    </form>
+            <button type="submit">Create Account</button>
+        </form>
 
-    <p class="bottom-text">
-        Already have an account?
-        <a href="{{ route('login') }}">Login</a>
-    </p>
+        <p class="bottom-text">
+            Already have an account?
+            <a href="{{ route('login') }}">Login</a>
+        </p>
 
-</div>
+    </div>
 
 </body>
+
 </html>

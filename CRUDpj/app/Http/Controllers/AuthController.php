@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 
     public function showLogin()
@@ -46,6 +47,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -53,10 +55,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            return redirect()->intended(route('home'));
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                return redirect()->intended(route('adminhome'));
+            } else {
+                return redirect()->intended(route('user.index'));
+            }
         }
-
         return back()->withErrors([
             'email' => 'Email or password is incorrect.',
         ])->onlyInput('email');
@@ -71,4 +76,14 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function index()
+    {
+        $totalUsers = User::count();
+
+        $totalposts = Post::count();
+
+        return view('admin.home' , compact('totalposts','totalUsers'));
+    }
+    
 }

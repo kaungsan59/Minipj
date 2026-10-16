@@ -121,7 +121,7 @@
         <div class="error">{{ $errors->first() }}</div>
     @endif
 
-    <form action="{{ url('/login') }}" method="POST">
+    <form action="{{ route('login') }}" method="POST">
         @csrf
 
         <label>Email Address</label>
